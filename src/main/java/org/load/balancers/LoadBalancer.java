@@ -11,12 +11,20 @@ public class LoadBalancer {
             System.out.println(roundRobin.getNextServer());
         }*/
 
-        int[] weights = {2,5, 1, 1};
+        /*int[] weights = {2,5, 1, 1};
 
         WeightedRoundRobin loadBalancer = new WeightedRoundRobin(servers, weights);
         for (int i = 0; i < 10; i++) {
             System.out.print("request " + i + ": ");
             System.out.println(loadBalancer.getNextServer());
+        }*/
+
+        LeastConnections loadBalancer = new LeastConnections(servers);
+        for (int i = 0; i < 10; i++) {
+            System.out.print("request " + i + ": ");
+            String nextServer = loadBalancer.getNextServer();
+            System.out.println(nextServer);
+            loadBalancer.releaseConnection(nextServer);
         }
     }
 }
